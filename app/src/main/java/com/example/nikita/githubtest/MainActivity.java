@@ -1,13 +1,17 @@
 package com.example.nikita.githubtest;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,64 +38,26 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String credits =(mLogin.getText().toString()).concat(":").concat(mPassword.getText().toString());
-                String loginUrl ="https://api.github.com/user";
-                new GetReposUrl(credits, loginUrl).execute();
-
-
-
-
-              /*  String encodedCredits = Base64.encodeToString(credits.getBytes(), Base64.NO_WRAP);
-                Request request = new Request.Builder()
-                        .url("https://api.github.com/user")
-                        .addHeader("Authorization", "Basic " + encodedCredits.trim())
-                        .get()
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
+                boolean connectionInfo = isOnline();
+                if(connectionInfo) {
+                    String credits = (mLogin.getText().toString()).concat(":").concat(mPassword.getText().toString());
+                    String loginUrl = "https://api.github.com/user";
+                    new GetReposUrl(credits, loginUrl).execute();
+                }
+                    else {
+                      Toast toast = Toast.makeText(getApplicationContext(),"No Internet Connection!", Toast.LENGTH_LONG);
+                      toast.show();
                     }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        try (ResponseBody responseBody = response.body()) {
-                            if (!response.isSuccessful()) {
-                                //answer = false;
-                                throw new IOException("Unexpected code " + response);
-                            }
-                            String jsonData = response.body().string();
-                            JSONObject jObj = new JSONObject(jsonData);
-                            reposURL = jObj.getString("repos_url");
-
-
-                        }
-                        catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                });*/
-                //reposURL ="https://api.github.com/users/Valgaal/repos";
-
-
-
-
-
-
-
-
-
-
-
-                //else {
-                //   Toast toast = Toast.makeText(getApplicationContext(),"Ошибка авторизации!", Toast.LENGTH_LONG);
-                //   toast.show();
-                //}
             }
         });
     }
-
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    //получение ссылки на репозитории и логин с помощью логин:пароль. Сохранение правильного логина и пароля
     class GetReposUrl extends AsyncTask<Void, Void, String> {
         private String credits;
         private String url;
@@ -121,17 +87,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String repos_url) {
-            Intent intent = GridActivity.newIntent(MainActivity.this, credits, repos_url);
-            startActivity(intent);
+            if(repos_url != null) {
+                Intent intent = GridActivity.newIntent(MainActivity.this, credits, repos_url);
+                startActivity(intent);
 
-            String login = mLogin.getText().toString().trim();
-            String password = mPassword.getText().toString().trim();
+                String login = mLogin.getText().toString().trim();
+                String password = mPassword.getText().toString().trim();
 
-            SharedPreferences settings = getSharedPreferences("Credits",MODE_PRIVATE);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("Login", login);
-            editor.putString("Password", password);
-            editor.commit();
+                SharedPreferences settings = getSharedPreferences("Credits", MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("Login", login);
+                editor.putString("Password", password);
+                editor.commit();
+            }
+            else {
+                Toast toast = Toast.makeText(getApplicationContext(),"Wrong Login or Password!", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
     }
 }

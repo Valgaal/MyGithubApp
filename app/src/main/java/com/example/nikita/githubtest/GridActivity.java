@@ -40,11 +40,7 @@ public class GridActivity extends AppCompatActivity {
         credits = i.getStringExtra(CREDITS);
         url = i.getStringExtra(NETWORK_CLASS);
 
-      //  if (InternetConnection.checkConnection(getApplicationContext())) {
         new GetDataTask().execute();
-       // } else {
-        //    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
-        //}
 
         mContext = getApplicationContext();
 
@@ -66,7 +62,7 @@ public class GridActivity extends AppCompatActivity {
         intent.putExtra(CREDITS, credits);
         return intent;
     }
-
+    //получение имен репозиториев, обновление адаптера. Сохранение информации для следующей активити
     class GetDataTask extends AsyncTask<Void, Void, ArrayList> {
 
         @Override

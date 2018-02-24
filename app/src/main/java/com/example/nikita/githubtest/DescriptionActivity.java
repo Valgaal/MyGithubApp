@@ -33,6 +33,7 @@ public class DescriptionActivity extends AppCompatActivity {
     Context mContext;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class DescriptionActivity extends AppCompatActivity {
         mAdapter = new CommitsAdapter(mContext, finalStrings);
         mRecyclerView.setAdapter(mAdapter);
     }
-
+    //получение информации о репозитории и обновление лэйаута
     class GetReposInfoTask extends AsyncTask<String, Void, ArrayList> {
 
         @Override
@@ -71,7 +72,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList doInBackground(String... strings) {
-            String mS = strings[0];
+            String mS = strings[0];//имя выбранного репозитория
             try {
                 SharedPreferences settings = getSharedPreferences("Description",MODE_PRIVATE);
                 String responseString = settings.getString("JSONForDescriptionActivity","");
@@ -110,7 +111,7 @@ public class DescriptionActivity extends AppCompatActivity {
             Picasso.with(DescriptionActivity.this).load(a.get(4).toString()).into(authorAva);
         }
     }
-
+    //получение информации по коммитам и обновление адаптера
     class GetCommitsData extends AsyncTask<String, Void, ArrayList> {
 
         @Override
@@ -129,7 +130,6 @@ public class DescriptionActivity extends AppCompatActivity {
 
 
                 JSONArray mJSON = new JSONArray(NetworkUtils.getResponseString(url,credits));
-                //передать Array String готовых,потому что он считает размер реальный.
                 for (int i = 0; i < mJSON.length(); i++) {
                     JSONObject jsonobject = mJSON.getJSONObject(i);
                     String sha = "Sha: " + jsonobject.getString("sha") + "\n";

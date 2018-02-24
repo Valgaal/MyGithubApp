@@ -37,6 +37,7 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder>{
                     int pos = getAdapterPosition();
                     Intent intent = new Intent(view.getContext(), DescriptionActivity.class);
                     intent.putExtra("name", mDataSet.get(pos).toString());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     view.getContext().startActivity(intent);
                 }
             });

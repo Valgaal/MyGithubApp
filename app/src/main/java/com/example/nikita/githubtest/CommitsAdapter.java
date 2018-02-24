@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
@@ -50,7 +46,6 @@ class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.ViewHolder> {
                 holder.mTextView.setText(stringForJSON.get(position).toString());
                 holder.mTextView.setBackgroundColor(Color.WHITE);
                 holder.mTextView.setTextColor(Color.GRAY);
-                holder.mTextView.setTextSize(14);
 
     }
 

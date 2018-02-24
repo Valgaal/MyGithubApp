@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+    private static String loginUrl = "https://api.github.com/user";
     EditText mPassword;
     EditText mLogin;
 
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 boolean connectionInfo = isOnline();
                 if(connectionInfo) {
                     String credits = (mLogin.getText().toString()).concat(":").concat(mPassword.getText().toString());
-                    String loginUrl = "https://api.github.com/user";
                     new GetReposUrl(credits, loginUrl).execute();
                 }
                     else {

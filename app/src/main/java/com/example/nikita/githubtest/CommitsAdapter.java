@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 
 class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.ViewHolder> {
-    private static ArrayList stringForJSON;
+    private ArrayList stringForJSON;
     private Context mContext;
 
 
@@ -25,9 +25,9 @@ class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.ViewHolder> {
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView mTextView;
-        public LinearLayout mLinearLayout;
-        public ViewHolder(View v){
+        private TextView mTextView;
+        private LinearLayout mLinearLayout;
+        private ViewHolder(View v){
             super(v);
             mTextView = (TextView) v.findViewById(R.id.tv2);
             mLinearLayout = (LinearLayout) v.findViewById(R.id.ll2);

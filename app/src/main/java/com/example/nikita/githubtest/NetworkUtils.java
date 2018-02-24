@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 // Класс, который общается  с сервером и возвращает результат в виде строки
-public class NetworkUtils {
+class NetworkUtils {
 
     public  static String getResponseString(String url, String credits){
                 Response response;

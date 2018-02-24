@@ -22,12 +22,12 @@ public class GridActivity extends AppCompatActivity {
     private static final String NETWORK_CLASS = "NetworkUtils";
 
     private Context mContext;
-    RelativeLayout mRelativeLayout;
+    private RelativeLayout mRelativeLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    String credits;
-    String url;
+    private  String credits;
+    private String url;
 
     ArrayList repos = new ArrayList();
 

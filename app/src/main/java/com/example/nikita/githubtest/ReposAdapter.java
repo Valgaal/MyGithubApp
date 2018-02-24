@@ -24,9 +24,9 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView mTextView;
-        public LinearLayout mLinearLayout;
-        public ViewHolder(View v){
+        private TextView mTextView;
+        private LinearLayout mLinearLayout;
+        private ViewHolder(View v){
             super(v);
             mTextView = (TextView) v.findViewById(R.id.tv);
             mLinearLayout = (LinearLayout) v.findViewById(R.id.ll);

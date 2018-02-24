@@ -3,4 +3,8 @@
     <string name="loginButton">Login</string>
     <string name="passwordHint">Your Password</string>
     <string name="loginHint">Your Login</string>
+    <string name="loginTextView">Login</string>
+    <string name="nameTextView">Name</string>
+    <string name="reposName">Repository: %1$s</string>
+    <string name="authorName">Author: %1$s</string>
 </resources>
